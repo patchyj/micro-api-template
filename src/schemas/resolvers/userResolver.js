@@ -1,19 +1,22 @@
-import fetch from "node-fetch";
+import mongoose from "mongoose";
+import User from "../../models/User";
+import config from "../../../config";
+
+mongoose.Promise = require("bluebird");
+
+mongoose.connect(config.USER_DB, { useNewUrlParser: true });
 
 // add some small resolvers
 const resolvers = {
   Query: {
-    user: async (parent, { id }) => {
-      const data = await fetch(
-        `https://jsonplaceholder.typicode.com/users/${id}`
-      );
-      const user = await data.json();
+    async user(parent, { id }) {
+      const user = await User.findOne({ id });
 
       return user;
     },
-    users: async () => {
-      const data = await fetch("https://jsonplaceholder.typicode.com/users");
-      const users = await data.json();
+    async users() {
+      const users = await User.find();
+      if (!users) return null;
 
       return users;
     }
