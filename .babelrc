@@ -1,0 +1,3 @@
+{
+  "extends": "patchyj-api-template-prod/config/babel"
+}

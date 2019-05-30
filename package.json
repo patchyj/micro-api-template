@@ -1,0 +1,26 @@
+{
+  "name": "test-npm-api",
+  "version": "1.0.0",
+  "description": "Testing out my dev and prod npm package",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node ./src/index.js",
+    "start:prod": "node ./dist/index.js",
+    "lint": "esw src --color",
+    "lint:watch": "npm run lint -- --watch",
+    "test": "jest",
+    "test:watch": "npm run test -- --watch",
+    "build": "run-s dist:clean lint test build:server copy:files",
+    "build:server": "babel -d ./dist ./src -s --ignore '**/*.spec.js'",
+    "dist:clean": "rimraf ./dist",
+    "copy:files": "cp package.json dist"
+  },
+  "author": "Jack",
+  "license": "ISC",
+  "dependencies": {
+    "patchyj-api-template-prod": "^1.0.0"
+  },
+  "devDependencies": {
+    "patchyj-api-template-dev": "^1.0.0"
+  }
+}
